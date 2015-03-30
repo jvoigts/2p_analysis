@@ -1,8 +1,10 @@
 %
-% Demo of a method for deforming and re-sampling 
+% Demo of a method for deforming and re-sampling
+% while not introducing any new correlation
+% between neighboring pixels.
 %
-%
-%
+% see also http://jvoigts.scripts.mit.edu/blog/?p=894
+% 
 % Mar 29, 2015
 % Jakob Voigts (jvoigts@mit.edu)
 
@@ -144,7 +146,15 @@ for cond=1:3 % condition 1: bilinear 2: nearest neighbor(NN) 3: NN with replacem
     end;
 end;
 
+%% plot result
 clf;
-imagesc([xc{1}(mm+px,mm+py) xc{2}(mm+px,mm+py) xc{3}(mm+px,mm+py)])
+imagesc([xc{1}(mm+px,mm+py) xc{2}(mm+px,mm+py) xc{3}(mm+px,mm+py)]);
+daspect([1 1 1])
+colormap(gray);
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+text(1,1,'Bilinear','color','white');
+text(18,1,'Nearest Neighbor','color','white');
+text(35,1,'NN & fan-out resampling','color','white');
 
 
