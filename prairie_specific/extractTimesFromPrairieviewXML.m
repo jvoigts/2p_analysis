@@ -21,16 +21,20 @@ tline= ' ';
 c=0;
 absoluteTime=[];
 relativeTime=[];
-while numel(tline)>0
+run=1;
+while run
     tline = fgets(f);
-    s=  sscanf(strtrim(tline), ['<Frame relativeTime="%f" absoluteTime="%f']);
-    
-    if numel(s)>0
-        c=c+1;
-        relativeTime(c)=s(1);
-        absoluteTime(c)=s(2);
-    end;
-    if mod(c,1000)==0;
-        fprintf('got %d timestamps\n',c);
+    run=tline~=-1; % chekc if end is reached
+    if run
+        s=  sscanf(strtrim(tline), ['<Frame relativeTime="%f" absoluteTime="%f']);
+        
+        if numel(s)>0
+            c=c+1;
+            relativeTime(c)=s(1);
+            absoluteTime(c)=s(2);
+        end;
+        if mod(c,1000)==0;
+            fprintf('got %d timestamps\n',c);
+        end;
     end;
 end;
